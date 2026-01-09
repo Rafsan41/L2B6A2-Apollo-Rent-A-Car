@@ -4,7 +4,7 @@ A complete RESTful API for managing vehicle rentals built with Node.js, Express.
 
 ## 📌 Live Demo
 
-- **API Base URL**: `https://l2-b6-a2-nine.vercel.app`
+- **API Base URL**: `https://l2-b6-a2-bay.vercel.app/`
 
 ## 🎯 Features
 
@@ -85,7 +85,7 @@ text
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/vehicle-rental-system.git
+git clone https://github.com/Rafsan41/L2B6A2-Apollo-Rent-A-Car
 cd vehicle-rental-system
 Install dependencies
 
@@ -125,7 +125,7 @@ npm start
 📚 API Documentation
 Base URL
 text
-http://localhost:5000/api/v1
+https://l2-b6-a2-bay.vercel.app/api/v1
 Authentication Endpoints
 Register User
 http
@@ -264,7 +264,7 @@ Authorization: Bearer <your_jwt_token>
 
 1. Register a Test User
 http
-POST http://localhost:5000/api/v1/auth/signup
+POST https://l2-b6-a2-bay.vercel.app/api/v1/auth/signup
 Content-Type: application/json
 
 {
@@ -274,7 +274,7 @@ Content-Type: application/json
 }
 2. Login and Save Token
 http
-POST http://localhost:5000/api/v1/auth/signin
+POST https://l2-b6-a2-bay.vercel.app/api/v1/auth/signin
 Content-Type: application/json
 
 {
@@ -285,11 +285,11 @@ Save the token from response for subsequent requests.
 
 3. Browse Available Vehicles
 http
-GET http://localhost:5000/api/v1/vehicles?status=available
+GET https://l2-b6-a2-bay.vercel.app/api/v1/vehicles?status=available
 Authorization: Bearer <your_token>
 4. Create a Booking
 http
-POST http://localhost:5000/api/v1/bookings
+POST https://l2-b6-a2-bay.vercel.app/api/v1/bookings
 Authorization: Bearer <your_token>
 Content-Type: application/json
 
@@ -300,6 +300,6 @@ Content-Type: application/json
 }
 5. View Your Bookings
 http
-GET http://localhost:5000/api/v1/bookings
+GET https://l2-b6-a2-bay.vercel.app/api/v1/bookings
 Authorization: Bearer <your_token>
 ```
