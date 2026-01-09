@@ -109,7 +109,8 @@ Update .env file
 env
 PORT=5000
 NODE_ENV=development
-DATABASE_URL=postgresql://username:password@localhost:5432/vehicle_rental_db
+DATABASE_URL=postgresql://neondb_owner:npg_MbDB9PmNJra4@ep-proud-lab-a1x8fdqf-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+
 JWT_SECRET=your_super_secret_jwt_key_here
 JWT_EXPIRES_IN=14d
 BCRYPT_SALT_ROUNDS=10
@@ -272,6 +273,10 @@ Content-Type: application/json
     "email": "test@example.com",
     "password": "Test123!"
 }
+
+
+
+
 2. Login and Save Token
 http
 POST https://l2-b6-a2-bay.vercel.app/api/v1/auth/signin
@@ -283,10 +288,18 @@ Content-Type: application/json
 }
 Save the token from response for subsequent requests.
 
+
+
+
+
 3. Browse Available Vehicles
 http
 GET https://l2-b6-a2-bay.vercel.app/api/v1/vehicles?status=available
 Authorization: Bearer <your_token>
+
+
+
+
 4. Create a Booking
 http
 POST https://l2-b6-a2-bay.vercel.app/api/v1/bookings
@@ -298,6 +311,9 @@ Content-Type: application/json
     "rent_start_date": "2024-01-15",
     "rent_end_date": "2024-01-18"
 }
+
+
+
 5. View Your Bookings
 http
 GET https://l2-b6-a2-bay.vercel.app/api/v1/bookings
