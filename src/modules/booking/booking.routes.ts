@@ -1,17 +1,30 @@
 import express, { Request, Response } from "express";
 
 import { bookingController } from "./booking.controller";
+import auth from "../../milddleware/auth";
 
 const router = express.Router();
 
-router.post("/", bookingController.createBooking);
+router.post("/", auth("admin", "customer"), bookingController.createBooking);
 
-router.get("/", bookingController.getAllbookings);
+router.get("/", auth("admin", "customer"), bookingController.getAllbookings);
 
-router.get("/:id", bookingController.getSingleBooking);
+router.get(
+  "/:bookingId",
+  auth("admin", "customer"),
+  bookingController.getSingleBooking
+);
 
-router.put("/:id", bookingController.updateSingleBooking);
+router.put(
+  "/:bookingId",
+  auth("admin", "customer"),
+  bookingController.updateSingleBooking
+);
 
-router.delete("/:id", bookingController.deletedSingleBooking);
+router.delete(
+  "/:bookingId",
+  auth("admin", "customer"),
+  bookingController.deletedSingleBooking
+);
 
 export const bookinglRoutes = router;

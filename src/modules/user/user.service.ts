@@ -1,13 +1,8 @@
 import { pool } from "../../config/db";
 import bcrypt from "bcryptjs";
-const createUser = async (
-  name: string,
-  role: string,
-  email: string,
-  password: string,
-  phone: number
-) => {
-  const hashedPass = await bcrypt.hash(password, 10);
+const createUser = async (payload: Record<string, unknown>) => {
+  const { name, role, email, password, phone } = payload;
+  const hashedPass = await bcrypt.hash(password as string, 10);
   const result = await pool.query(
     "INSERT INTO users(name, role, email, password, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *",
     [name, role, email, hashedPass, phone]
@@ -30,20 +25,49 @@ const updateSingleUser = async (
   role: string,
   email: string,
   password: string,
-  phone: number,
+  phone: string,
   id: string
 ) => {
-  const result = await pool.query(
-    `UPDATE users
-       SET name = $1,
-           role = $2,
-           email = $3,
-           password = $4,
-           phone = $5
-       WHERE id = $6
-       RETURNING *`,
-    [name, role, email, password, phone, id]
-  );
+  const updates: string[] = [];
+  const values: any[] = [];
+  let index = 1;
+
+  if (name) {
+    updates.push(`name = $${index}`);
+    values.push(name);
+    index++;
+  }
+  if (role) {
+    updates.push(`role = $${index}`);
+    values.push(role);
+    index++;
+  }
+  if (email) {
+    updates.push(`email = $${index}`);
+    values.push(email);
+    index++;
+  }
+  if (password) {
+    updates.push(`password = $${index}`);
+    values.push(password);
+    index++;
+  }
+  if (phone) {
+    updates.push(`phone = $${index}`);
+    values.push(phone);
+    index++;
+  }
+
+  if (updates.length === 0) {
+    throw new Error("No fields to update");
+  }
+  values.push(id);
+
+  const query = `UPDATE users SET ${updates.join(
+    ", "
+  )} WHERE id = $${index} RETURNING id, name, email, password, phone, role`;
+
+  const result = await pool.query(query, values);
   return result;
 };
 

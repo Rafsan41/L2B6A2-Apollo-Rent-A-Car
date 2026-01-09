@@ -3,8 +3,8 @@ import bcrypt from "bcryptjs";
 
 import jwt from "jsonwebtoken";
 import config from "../../config";
-const logInUser = async (email: string, password: string) => {
-  console.log({ email });
+
+const signInUser = async (email: string, password: string) => {
   const result = await pool.query(
     `
         SELECT * FROM users WHERE email=$1
@@ -22,16 +22,21 @@ const logInUser = async (email: string, password: string) => {
   }
 
   const token = jwt.sign(
-    { name: user.name, email: user.email },
+    {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
     config.jwtSecret as string,
     {
-      expiresIn: "7d",
+      expiresIn: "14d",
     }
   );
-  console.log({ token });
+
   return { token, user };
 };
 
 export const authServices = {
-  logInUser,
+  signInUser,
 };

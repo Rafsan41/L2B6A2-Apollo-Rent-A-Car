@@ -1,17 +1,22 @@
 import express, { Request, Response } from "express";
 import { pool } from "../../config/db";
 import { vehicleController } from "./vehicle.controller";
+import auth from "../../milddleware/auth";
 
 const router = express.Router();
 
-router.post("/", vehicleController.createVehicle);
+router.post("/", auth("admin"), vehicleController.createVehicle);
 
 router.get("/", vehicleController.getAllvehicles);
 
-router.get("/:id", vehicleController.getSingleVehicle);
+router.get("/:vehicleId", vehicleController.getSingleVehicle);
 
-router.put("/:id", vehicleController.updateSingleVehicle);
+router.put("/:vehicleId", auth("admin"), vehicleController.updateSingleVehicle);
 
-router.delete("/:id", vehicleController.deletedSingleVehicle);
+router.delete(
+  "/:vehicleId",
+  auth("admin"),
+  vehicleController.deletedSingleVehicle
+);
 
 export const vechiclRoutes = router;

@@ -2,22 +2,8 @@ import express, { Request, Response } from "express";
 import { pool } from "../../config/db";
 import { vehicleService } from "./vehicle.service";
 const createVehicle = async (req: Request, res: Response) => {
-  const {
-    vehicle_name,
-    type,
-    registration_number,
-    daily_rent_price,
-    availability_status,
-  } = req.body;
-
   try {
-    const result = await vehicleService.createVehicle(
-      vehicle_name,
-      type,
-      registration_number,
-      daily_rent_price,
-      availability_status
-    );
+    const result = await vehicleService.createVehicle(req.body);
 
     res.status(201).json({ success: true, vehicle: result.rows[0] });
   } catch (err: any) {
@@ -32,15 +18,15 @@ const getAllvehicles = async (req: Request, res: Response) => {
     res.status(200).json({ success: true, vehicles: result.rows });
   } catch (err: any) {
     console.error(err);
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
 const getSingleVehicle = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { vehicleId } = req.params;
 
   try {
-    const result = await vehicleService.getSingleVehicle(id as string);
+    const result = await vehicleService.getSingleVehicle(vehicleId as string);
 
     if (result.rowCount === 0) {
       return res
@@ -55,7 +41,7 @@ const getSingleVehicle = async (req: Request, res: Response) => {
   }
 };
 const updateSingleVehicle = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { vehicleId } = req.params;
   const {
     vehicle_name,
     type,
@@ -71,7 +57,7 @@ const updateSingleVehicle = async (req: Request, res: Response) => {
       registration_number,
       daily_rent_price,
       availability_status,
-      id as string
+      vehicleId as string
     );
 
     if (result.rowCount === 0) {
@@ -88,10 +74,12 @@ const updateSingleVehicle = async (req: Request, res: Response) => {
 };
 
 const deletedSingleVehicle = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { vehicleId } = req.params;
 
   try {
-    const result = await vehicleService.deletedSingleVehicle(id as string);
+    const result = await vehicleService.deletedSingleVehicle(
+      vehicleId as string
+    );
 
     if (result.rowCount === 0) {
       return res
