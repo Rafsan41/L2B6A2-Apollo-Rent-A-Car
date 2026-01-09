@@ -11,8 +11,11 @@ app.use(express.json());
 initDB();
 
 //  initial get test
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello Apollo rent a car !!! ");
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "API is running 🚀",
+  });
 });
 // initial post test
 app.post("/", (req: Request, res: Response) => {

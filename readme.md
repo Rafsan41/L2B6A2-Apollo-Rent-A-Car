@@ -4,9 +4,7 @@ A complete RESTful API for managing vehicle rentals built with Node.js, Express.
 
 ## 📌 Live Demo
 
-- **API Base URL**: `https://your-domain.com/api/v1`
-- **Postman Collection**: [Download Here](#)
-- **Frontend Demo**: [Live Preview](#)
+- **API Base URL**: `https://l2-b6-a2-nine.vercel.app`
 
 ## 🎯 Features
 
