@@ -43,7 +43,7 @@ const getSingleBooking = async (id: string) => {
   return result;
 };
 
-// ✅ Added: Get bookings for admin (with customer and vehicle details)
+// Added: Get bookings for admin (with customer and vehicle details)
 const getAllBookingsAdmin = async () => {
   const result = await pool.query(`
     SELECT 
@@ -61,7 +61,7 @@ const getAllBookingsAdmin = async () => {
   return result;
 };
 
-// ✅ Added: Get bookings for specific user
+//  Added: Get bookings for specific user
 const getUserBookings = async (user_id: number) => {
   const result = await pool.query(
     `
@@ -80,7 +80,7 @@ const getUserBookings = async (user_id: number) => {
   return result;
 };
 
-// ✅ Added: Get single booking for admin (with details)
+//  Added: Get single booking for admin (with details)
 const getSingleBookingAdmin = async (id: string) => {
   const result = await pool.query(
     `
@@ -100,7 +100,6 @@ const getSingleBookingAdmin = async (id: string) => {
   return result;
 };
 
-// ✅ Added: Get single booking for user
 const getUserSingleBooking = async (id: string, user_id: number) => {
   const result = await pool.query(
     `
@@ -148,7 +147,7 @@ const updateSingleBooking = async (
   return result;
 };
 
-// ✅ Added: Update only booking status (for customer cancellation/admin return)
+//  Added: Update only booking status (for customer cancellation/admin return)
 const updateBookingStatus = async (
   id: string,
   status: string,
@@ -209,7 +208,6 @@ export const bookingService = {
   getSingleBooking,
   updateSingleBooking,
   deletedSingleBooking,
-  // ✅ Added new methods for role-based access
   getAllBookingsAdmin,
   getUserBookings,
   getSingleBookingAdmin,

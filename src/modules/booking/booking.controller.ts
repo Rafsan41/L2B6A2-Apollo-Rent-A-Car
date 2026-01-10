@@ -5,7 +5,7 @@ const createBooking = async (req: Request, res: Response) => {
   const { customer_id, vehicle_id, rent_start_date, rent_end_date } = req.body;
 
   try {
-    // ✅ Validate required fields
+    // Validate required fields
     if (!customer_id || !vehicle_id || !rent_start_date || !rent_end_date) {
       return res.status(400).json({
         success: false,
@@ -17,7 +17,7 @@ const createBooking = async (req: Request, res: Response) => {
 
     const loggedInUser = req.user;
 
-    // ✅ Convert to numbers for comparison
+    //  Convert to numbers for comparison
     if (
       loggedInUser?.role === "customer" &&
       loggedInUser?.user_id !== parseInt(customer_id)
@@ -28,16 +28,16 @@ const createBooking = async (req: Request, res: Response) => {
       });
     }
 
-    // ✅ Pass 'active' as default status, NOT from request body
+    // Pass 'active' as default status, NOT from request body
     const result = await bookingService.createBooking(
       parseInt(customer_id),
       parseInt(vehicle_id),
       rent_start_date,
       rent_end_date,
-      "active" // ✅ Default status, not from request
+      "active" // Default status, not from request
     );
 
-    // ✅ CORRECT RESPONSE FORMAT
+    // CORRECT RESPONSE FORMAT
     res.status(201).json({
       success: true,
       message: "Booking created successfully",
@@ -58,7 +58,7 @@ const createBooking = async (req: Request, res: Response) => {
   } catch (err: any) {
     console.error(err);
 
-    // ✅ Handle specific errors
+    // Handle specific errors
     if (err.message.includes("not available")) {
       return res.status(400).json({
         success: false,
