@@ -114,7 +114,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
     } else {
       res.status(200).json({
         success: true,
-        message: "User updated successfully", // REQUIRED
+        message: "User updated successfully",
         data: {
           // MUST be "data"
           id: result.rows[0].id,
